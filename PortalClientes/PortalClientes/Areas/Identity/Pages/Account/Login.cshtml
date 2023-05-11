@@ -1,0 +1,151 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <div>@TempData["MensagemSucesso"]</div>
+        <button type="button" class="btn-close close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <div>@TempData["MensagemErro"]</div>
+        <button type="button" class="btn-close close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<section class="">
+    <!-- Jumbotron -->
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+        <div class="container">
+            <div class="row gx-lg-5 align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h1 class="my-5 display-3 fw-bold ls-tight">
+                        Grupo Future <br />
+                        <span class="text-primary">Portal de Clientes</span>
+                    </h1>
+                    <p style="color: hsl(217, 10%, 50.8%)">
+                        Olá Cliente do Grupo Future!<br>
+                        Digite suas credencias ao lado para acesso aos sistemas do grupo.
+                        Caso ainda não possua suas credenciais, faça seu cadastro e aguarde a liberação da nossa equipe de TI.
+                    </p>
+                </div>
+
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="card">
+                        <div class="card-body py-5 px-md-5">
+                            <form id="account" method="post">
+                                <div class="row text-center">
+                                    <h3>Login</h3>
+                                    <hr />
+                                    <p></p>
+                                </div>                                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                                <div class="form-outline mb-4">
+                                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                                    <label asp-for="Input.Email" class="form-label">Email</label>
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-outline mb-3">
+                                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                                    <label asp-for="Input.Password" class="form-label">Senha</label>
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                </div>
+
+                                <!-- 2 column grid layout for inline styling -->
+                                <div class="row mb-4">
+                                    <div class="col d-flex justify-content-left">
+                                        <label asp-for="Input.RememberMe" class="form-label">
+                                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                        </label>
+                                    </div>
+
+                                    <div class="col">
+                                        <a id="forgot-password" asp-page="./ForgotPassword">Esqueceu sua senha?</a>
+                                    </div>
+                                </div>
+
+
+                                <div>
+                                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary mb-4">Entrar</button>
+                                </div>
+
+                                <!-- Register buttons -->
+                                <div class="text-center">
+                                    <p>
+                                        Não possui credenciais?<a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl"> Criar conta.</a>
+                                        <br />
+                                        Não recebeu o email de confirmação?<a id="resend-confirmation" asp-page="./ResendEmailConfirmation"> Reenviar.</a>
+                                    </p>
+
+                                    <p>
+                                        <hr />Redes sociais:<br />
+
+                                        <button type="button" class="btn btn-link btn-floating mx-1">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-link btn-floating mx-1">
+                                            <i class="fab fa-google"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-link btn-floating mx-1">
+                                            <i class="fab fa-twitter"></i>
+                                        </button>
+
+                                    </p>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Jumbotron -->
+</section>
+
+
+
+@*    <div class="col-md-6 col-md-offset-2">
+        <section>
+        <h3>Use another service to log in.</h3>
+        <hr />
+        @{
+        if ((Model.ExternalLogins?.Count ?? 0) == 0)
+        {
+        <div>
+        <p>
+        There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+        about setting up this ASP.NET application to support logging in via external services</a>.
+        </p>
+        </div>
+        }
+        else
+        {
+        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+        <div>
+        <p>
+        @foreach (var provider in Model.ExternalLogins!)
+        {
+        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+        }
+        </p>
+        </div>
+        </form>
+        }
+        }
+        </section>
+        </div>*@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
